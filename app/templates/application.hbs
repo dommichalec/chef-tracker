@@ -1,16 +1,37 @@
 {{!-- ember g template application --}}
 <h1>Chef Tracker</h1>
-<p>Is your favorite {{name}} cooking?</p>
-<p>Welcome to {{restaurant.name}}, your favorite {{restaurant.location}}-based Italian restaurant for the last {{restaurant.age}} years!</p>
-<p>Find out with <strong>Chef Tracker</strong>, the hottest new {{name}}-tracking
-  app on the market.</p>
-<p>We know some {{name}}s are better than others, so we want to tell you who's
-  cooking at our restaurant right now. Is it your favorite {{name}}? Then maybe you should visit!</p>
+
+<p>
+  Welcome to {{restaurant.name}}, your favorite {{restaurant.location}}-based
+  Italian restaurant for the last {{restaurant.age}} years!
+</p>
+
 <p>Each meal has been prepared by the following {{chefs.length}} {{name}}s:</p>
+
 {{#each chefs as |chef|}}
   <li>
-    {{chef.name}}'s availabilty: {{chef.isAvailable}}
+    {{chef.name}}'s {{if chef.isAvailable "available" "unavailable"}} this evening
   </li>
 {{/each}}
+
+<h2>This evening's dishes:</h2>
+{{#each dishes as |dish|}}
+  {{#if dish.isAvailable}}
+    <li>
+      {{dish.name}} is available this evening
+    </li>
+  {{/if}}
+{{/each}}
+
+<h2>Future dishes:</h2>
+{{#each dishes as |dish|}}
+  {{#unless dish.isAvailable}}
+    <li>
+      {{dish.name}} will be available soon
+    </li>
+  {{/unless}}
+{{/each}}
+
+<br>
 {{input value=name}}
 {{input value=restaurant.name}}
