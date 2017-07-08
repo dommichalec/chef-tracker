@@ -18,5 +18,14 @@ export default Ember.Controller.extend({
     {name: "Chicken Alfredo", isAvailable: false},
     {name: "Ceasar Salad", isAvailable: true},
   ],
-  restaurant: {name: "Bertoli's", age: 3, location: "Columbus"},
+  restaurant: {name: "Bertoli's", age: 3, city: "Columbus", state: "OH"},
+
+  actions: {
+    makeAvailable(dish) {
+      Ember.set(dish, 'isAvailable', true)
+    },
+    makeUnavailable(dish) {
+      Ember.set(dish, 'isAvailable', false)
+    }
+  }
 });

@@ -1,8 +1,8 @@
 {{!-- ember g template application --}}
-<h1>Chef Tracker</h1>
+<h1{{action 'click' 'Header'}}> Chef Tracker</h1>
 
 <p>
-  Welcome to {{restaurant.name}}, your favorite {{restaurant.location}}-based
+  Welcome to {{restaurant.name}}, your favorite {{restaurant.city}}-based
   Italian restaurant for the last {{restaurant.age}} years!
 </p>
 
@@ -10,28 +10,35 @@
 
 {{#each chefs as |chef|}}
   <li>
+    {{! if true render "available" otherwise render "unavailable"}}
     {{chef.name}}'s {{if chef.isAvailable "available" "unavailable"}} this evening
   </li>
 {{/each}}
 
 <h2>This evening's dishes:</h2>
 {{#each dishes as |dish|}}
+{{! if true render dish name }}
   {{#if dish.isAvailable}}
     <li>
       {{dish.name}} is available this evening
+      <button {{ action "makeUnavailable" dish}}>make unavailable</button>
     </li>
   {{/if}}
 {{/each}}
 
-<h2>Future dishes:</h2>
-{{#each dishes as |dish|}}
-  {{#unless dish.isAvailable}}
-    <li>
-      {{dish.name}} will be available soon
-    </li>
-  {{/unless}}
-{{/each}}
+<div class="future-dishes">
+  <h2>Future dishes:</h2>
+  {{#each dishes as |dish|}}
+    {{#unless dish.isAvailable}}
+      <li>
+        {{dish.name}} will be available soon
+        <button {{ action "makeAvailable" dish}}>make available</button>
+      </li>
+    {{/unless}}
+  {{/each}}
+</div>
 
 <br>
 {{input value=name}}
 {{input value=restaurant.name}}
+<button {{action 'click' 'Button'}}>Click me</button>
